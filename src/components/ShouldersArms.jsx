@@ -1,5 +1,6 @@
 import React from 'react'
 import ExerciseCard from './ExerciseCard'
+import getImagePath from '../utils/imagePaths'
 
 const ShouldersArms = () => {
   const exercises = [
@@ -10,7 +11,7 @@ const ShouldersArms = () => {
       icon: 'fas fa-dumbbell',
       notes: 'Movimento completo',
       restTime: '90-120s',
-      imagePath: '/images/exercises/desenvolvimento.png'
+      imagePath: getImagePath('desenvolvimento.png')
     },
     { 
       name: 'Elevação Lateral com Halteres', 
@@ -19,7 +20,7 @@ const ShouldersArms = () => {
       icon: 'fas fa-hand-paper',
       notes: 'Controle na descida',
       restTime: '60-90s',
-      imagePath: '/images/exercises/elevacaoLateralHalter.png'
+      imagePath: getImagePath('elevacaoLateralHalter.png')
     },
     { 
       name: 'Encolhimento de Ombros com Barra', 
@@ -28,7 +29,7 @@ const ShouldersArms = () => {
       icon: 'fas fa-arrows-alt-v',
       notes: 'Pausa no topo',
       restTime: '60-90s',
-      imagePath: '/images/exercises/encolimentoOmbro.png'
+      imagePath: getImagePath('encolimentoOmbro.png')
     },
     { 
       name: 'Rosca Direta com Barra (Bíceps)', 
@@ -37,7 +38,7 @@ const ShouldersArms = () => {
       icon: 'fas fa-dumbbell',
       notes: 'Cotovelos fixos',
       restTime: '60-90s',
-      imagePath: '/images/exercises/roscaDiretaBarra.png'
+      imagePath: getImagePath('roscaDiretaBarra.png')
     },
     { 
       name: 'Rosca Concentrada (Bíceps)', 
@@ -46,7 +47,7 @@ const ShouldersArms = () => {
       icon: 'fas fa-weight-hanging',
       notes: 'Apoio no banco',
       restTime: '60-90s',
-      imagePath: '/images/exercises/roscaConcentrada.png'
+      imagePath: getImagePath('roscaConcentrada.png')
     },
     { 
       name: 'Triceps Testa', 
@@ -55,7 +56,7 @@ const ShouldersArms = () => {
       icon: 'fas fa-dumbbell',
       notes: 'Amplitude total',
       restTime: '60-90s',
-      imagePath: '/images/exercises/tricepsTesta.png'
+      imagePath: getImagePath('tricepsTesta.png')
     },
     { 
       name: 'Corda na Polia (Tríceps)', 
@@ -64,7 +65,7 @@ const ShouldersArms = () => {
       icon: 'fas fa-arrows-alt-v',
       notes: 'Extensão completa',
       restTime: '60-90s',
-      imagePath: '/images/exercises/CordaPolia.png'
+      imagePath: getImagePath('CordaPolia.png')
     }
   ]
 

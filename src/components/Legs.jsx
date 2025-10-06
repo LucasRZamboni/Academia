@@ -1,5 +1,6 @@
 import React from 'react'
 import ExerciseCard from './ExerciseCard'
+import getImagePath from '../utils/imagePaths'
 
 const Legs = () => {
   const exercises = [
@@ -10,7 +11,7 @@ const Legs = () => {
       icon: 'fas fa-running',
       notes: 'Amplitude completa',
       restTime: '120-180s',
-      imagePath: '/images/exercises/agachamentoHack.png'
+      imagePath: getImagePath('agachamentoHack.png')
     },
     { 
       name: 'Leg Press 45°', 
@@ -19,7 +20,7 @@ const Legs = () => {
       icon: 'fas fa-dumbbell',
       notes: 'Controle na descida',
       restTime: '90-120s',
-      imagePath: '/images/exercises/legpress.png'
+      imagePath: getImagePath('legpress.png')
     },
     { 
       name: 'Stiff com Halteres ou Barra', 
@@ -28,7 +29,7 @@ const Legs = () => {
       icon: 'fas fa-weight-hanging',
       notes: 'Costas retas',
       restTime: '90-120s',
-      imagePath: '/images/exercises/stiffHalterBarra.png'
+      imagePath: getImagePath('stiffHalterBarra.png')
     },
     { 
       name: 'Cadeira Extensora (Quadríceps)', 
@@ -37,7 +38,7 @@ const Legs = () => {
       icon: 'fas fa-chair',
       notes: 'Pausa no topo',
       restTime: '60-90s',
-      imagePath: '/images/exercises/cadeiraExtensora.png'
+      imagePath: getImagePath('cadeiraExtensora.png')
     },
     { 
       name: 'Cadeira Flexora (Isquiotibiais)', 
@@ -46,7 +47,7 @@ const Legs = () => {
       icon: 'fas fa-chair',
       notes: 'Contração máxima',
       restTime: '60-90s',
-      imagePath: '/images/exercises/cadeiraFlexora.png'
+      imagePath: getImagePath('cadeiraFlexora.png')
     },
     { 
       name: 'Panturrilhas Sentado', 
@@ -55,7 +56,7 @@ const Legs = () => {
       icon: 'fas fa-chair',
       notes: 'Amplitude total',
       restTime: '30-60s',
-      imagePath: '/images/exercises/panturrilhaSentado.png'
+      imagePath: getImagePath('panturrilhaSentado.png')
     },
     { 
       name: 'Panturrilhas em pé', 
@@ -64,7 +65,7 @@ const Legs = () => {
       icon: 'fas fa-running',
       notes: 'Pausa no topo',
       restTime: '30-60s',
-      imagePath: '/images/exercises/panturrilhaPe.png'
+      imagePath: getImagePath('panturrilhaPe.png')
     }
   ]
 

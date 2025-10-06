@@ -1,5 +1,6 @@
 import React from 'react'
 import ExerciseCard from './ExerciseCard'
+import getImagePath from '../utils/imagePaths'
 
 const ChestBack = () => {
   const exercises = [
@@ -10,7 +11,7 @@ const ChestBack = () => {
       icon: 'fas fa-dumbbell',
       notes: 'Foco na amplitude completa',
       restTime: '90-120s',
-      imagePath: '/images/exercises/supinoRetoBarra.png'
+      imagePath: getImagePath('supinoRetoBarra.png')
     },
     { 
       name: 'Supino Inclinado com Halteres', 
@@ -19,7 +20,7 @@ const ChestBack = () => {
       icon: 'fas fa-weight-hanging',
       notes: 'Inclinação 30-45°',
       restTime: '90-120s',
-      imagePath: '/images/exercises/supinoInclunadoHalter.png'
+      imagePath: getImagePath('supinoInclunadoHalter.png')
     },
     { 
       name: 'Pull-Over com Halteres', 
@@ -28,7 +29,7 @@ const ChestBack = () => {
       icon: 'fas fa-dumbbell',
       notes: 'Movimento controlado',
       restTime: '60-90s',
-      imagePath: '/images/exercises/pullOver.jpeg'
+      imagePath: getImagePath('pullOver.jpeg')
     },
     { 
       name: 'Puxada Frontal na Polia', 
@@ -37,7 +38,7 @@ const ChestBack = () => {
       icon: 'fas fa-arrows-alt-v',
       notes: 'Puxar até o peito',
       restTime: '90-120s',
-      imagePath: '/images/exercises/puxadaFrontalPolia.png'
+      imagePath: getImagePath('puxadaFrontalPolia.png')
     },
     { 
       name: 'Remada Curvada com Barra', 
@@ -46,7 +47,7 @@ const ChestBack = () => {
       icon: 'fas fa-dumbbell',
       notes: 'Costas retas',
       restTime: '90-120s',
-      imagePath: '/images/exercises/remadaCurvada.png'
+      imagePath: getImagePath('remadaCurvada.png')
     },
     { 
       name: 'Polia Alta com Pegada Supinada', 
@@ -55,7 +56,7 @@ const ChestBack = () => {
       icon: 'fas fa-hand-rock',
       notes: 'Assistido se necessário',
       restTime: '120-180s',
-      imagePath: '/images/exercises/poliaAltaSupinada.png'
+      imagePath: getImagePath('poliaAltaSupinada.png')
     }
   ]
 
