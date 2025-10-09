@@ -8,7 +8,8 @@
   "build": "vite build",
   "preview": "vite preview",
   "serve": "python3 -m http.server 3000",
-  "deploy": "vite build && PATH=$PATH:/usr/bin gh-pages -d dist"
+  "deploy": "./deploy-updated.sh",
+  "deploy-old": "vite build && PATH=$PATH:/usr/bin gh-pages -d dist"
   },
   "dependencies": {
     "react": "^18.2.0",
