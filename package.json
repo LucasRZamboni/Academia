@@ -4,11 +4,11 @@
   "description": "Aplicativo para acompanhar treinos de academia",
   "type": "module",
   "scripts": {
-    "dev": "vite --force",
-    "build": "vite build",
-    "preview": "vite preview",
-    "serve": "python3 -m http.server 3000",
-    "deploy": "npm run build && cp public/404.html dist/404.html && PATH=$PATH:/usr/bin gh-pages -d dist"
+  "dev": "vite --force",
+  "build": "vite build",
+  "preview": "vite preview",
+  "serve": "python3 -m http.server 3000",
+  "deploy": "vite build && PATH=$PATH:/usr/bin gh-pages -d dist"
   },
   "dependencies": {
     "react": "^18.2.0",
