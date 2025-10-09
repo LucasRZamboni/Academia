@@ -15,7 +15,7 @@ const ExerciseCard = ({ name, series, reps, notes, icon, restTime = "60-90s", im
   return (
     <>
       <div 
-        className="exercise-card group h-full cursor-pointer hover:scale-105 transition-transform duration-200 p-3 md:p-6" 
+        className="exercise-card group h-full cursor-pointer p-3 md:p-6" 
         onClick={handleCardClick}
         title="Clique para ver a imagem do exercício"
       >

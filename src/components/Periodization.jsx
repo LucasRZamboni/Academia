@@ -3,63 +3,59 @@ import React from 'react'
 const Periodization = ({ selectedDay, onDaySelect }) => {
   const days = [
     { 
-      day: 'Segunda', 
-      workout: 'Peito + Costas', 
+      day: 'Segunda-feira', 
+      workout: 'Treino Personalizado', 
       icon: 'fas fa-dumbbell',
       color: 'from-primary-500 to-primary-600',
       bgColor: 'bg-primary-900/20'
     },
     { 
-      day: 'Terça', 
-      workout: 'Ombros + Braços', 
-      icon: 'fas fa-hand-paper',
-      color: 'from-secondary-500 to-secondary-600',
-      bgColor: 'bg-secondary-900/20'
+      day: 'Terça-feira', 
+      workout: 'Treino Personalizado', 
+      icon: 'fas fa-cogs',
+      color: 'from-warning-500 to-warning-600',
+      bgColor: 'bg-warning-900/20'
     },
     { 
-      day: 'Quarta', 
-      workout: 'Pernas', 
+      day: 'Quarta-feira', 
+      workout: 'Treino Personalizado', 
       icon: 'fas fa-running',
-      color: 'from-accent-500 to-accent-600',
-      bgColor: 'bg-accent-900/20'
+      color: 'from-success-500 to-success-600',
+      bgColor: 'bg-success-900/20'
     },
     { 
-      day: 'Quinta', 
-      workout: 'Peito + Costas', 
+      day: 'Quinta-feira', 
+      workout: 'Treino Personalizado', 
       icon: 'fas fa-dumbbell',
       color: 'from-primary-500 to-primary-600',
       bgColor: 'bg-primary-900/20'
     },
     { 
-      day: 'Sexta', 
-      workout: 'Ombros + Braços', 
-      icon: 'fas fa-hand-paper',
-      color: 'from-secondary-500 to-secondary-600',
-      bgColor: 'bg-secondary-900/20'
+      day: 'Sexta-feira', 
+      workout: 'Treino Personalizado', 
+      icon: 'fas fa-cogs',
+      color: 'from-warning-500 to-warning-600',
+      bgColor: 'bg-warning-900/20'
     },
     { 
       day: 'Sábado', 
-      workout: 'Pernas', 
+      workout: 'Treino Personalizado', 
       icon: 'fas fa-running',
-      color: 'from-accent-500 to-accent-600',
-      bgColor: 'bg-accent-900/20'
+      color: 'from-success-500 to-success-600',
+      bgColor: 'bg-success-900/20'
     },
     { 
       day: 'Domingo', 
       workout: 'Descanso', 
       isRest: true,
       icon: 'fas fa-bed',
-      color: 'from-dark-500 to-dark-600',
-      bgColor: 'bg-dark-700/20'
+      color: 'from-gray-500 to-gray-600',
+      bgColor: 'bg-gray-900/20'
     }
   ]
 
-  const handleDayClick = (workout) => {
-    if (workout === 'Descanso') {
-      onDaySelect('Descanso')
-    } else {
-      onDaySelect(workout)
-    }
+  const handleDayClick = (dayName) => {
+    onDaySelect(dayName)
   }
 
   return (
@@ -69,36 +65,37 @@ const Periodization = ({ selectedDay, onDaySelect }) => {
         Clique em um dia da semana para ver os exercícios do treino
       </p>
       {/* Mobile Layout - Lista Compacta */}
-      <div className="block md:hidden space-y-3">
+      <div className="block md:hidden space-y-2">
         {days.map((day, index) => (
           <div 
             key={index} 
-            onClick={() => handleDayClick(day.workout)}
-            className={`flex items-center justify-between p-4 rounded-xl bg-dark-800/80 backdrop-blur-lg border border-dark-600/50 hover:bg-dark-700/90 transition-all duration-300 cursor-pointer ${selectedDay === day.workout ? 'border-accent-500 bg-accent-900/20' : ''} ${day.isRest ? 'opacity-75' : ''}`}
+            onClick={() => handleDayClick(day.day)}
+            className={`flex items-center justify-between p-3 rounded-xl bg-dark-800/80 backdrop-blur-lg border border-dark-600/50 hover:bg-dark-700/90 transition-all duration-300 cursor-pointer ${selectedDay === day.day ? 'border-accent-500 bg-accent-900/20' : ''} ${day.isRest ? 'opacity-75' : ''}`}
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <div className="flex items-center gap-3">
-              <div className={`w-8 h-8 rounded-full bg-gradient-to-r ${day.color} flex items-center justify-center text-white shadow-lg flex-shrink-0`}>
+            <div className="flex items-center gap-3 min-w-0 flex-1">
+              <div className={`w-7 h-7 rounded-full bg-gradient-to-r ${day.color} flex items-center justify-center text-white shadow-lg flex-shrink-0`}>
                 <i className={`${day.icon} text-xs`}></i>
               </div>
-              <div>
-                <div className="text-lg font-bold text-dark-100">
+              <div className="min-w-0 flex-1">
+                <div className="text-sm font-bold text-dark-100 truncate">
                   {day.day}
                 </div>
-                <div className="text-dark-300 text-sm">
+                <div className="text-dark-300 text-xs truncate">
                   {day.workout}
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 flex-shrink-0">
               {!day.isRest && (
                 <div className="text-xs text-dark-400 bg-dark-700/60 px-2 py-1 rounded-full">
                   <i className="fas fa-clock mr-1"></i>
-                  <span>60-90min</span>
+                  <span className="hidden xs:inline">60-90min</span>
+                  <span className="xs:hidden">60-90</span>
                 </div>
               )}
-              {selectedDay === day.workout && (
-                <div className="w-6 h-6 rounded-full bg-accent-500 flex items-center justify-center">
+              {selectedDay === day.day && (
+                <div className="w-5 h-5 rounded-full bg-accent-500 flex items-center justify-center">
                   <i className="fas fa-check text-white text-xs"></i>
                 </div>
               )}
@@ -107,13 +104,13 @@ const Periodization = ({ selectedDay, onDaySelect }) => {
         ))}
       </div>
 
-      {/* Desktop Layout - Grid Original */}
-      <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-6">
+      {/* Desktop Layout - Grid Responsivo */}
+      <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-7 gap-4 lg:gap-6">
         {days.map((day, index) => (
           <div 
             key={index} 
-            onClick={() => handleDayClick(day.workout)}
-            className={`card ${day.isRest ? 'card-rest' : ''} ${selectedDay === day.workout ? 'card-active' : ''} group relative overflow-hidden`}
+            onClick={() => handleDayClick(day.day)}
+            className={`card ${day.isRest ? 'card-rest' : ''} ${selectedDay === day.day ? 'card-active' : ''} group relative overflow-hidden`}
             style={{ animationDelay: `${index * 0.1}s` }}
           >
             <div className={`absolute inset-0 ${day.bgColor} opacity-50 group-hover:opacity-70 transition-opacity duration-300`}></div>
