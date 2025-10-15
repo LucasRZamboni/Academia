@@ -149,7 +149,7 @@ const AdvancedExerciseManagement = ({ onBack, onSave, dayExercises = {}, selecte
           <div className="flex items-center justify-center gap-4 mb-4">
             <button
               onClick={onBack}
-              className="glass-card p-3 hover:bg-primary-900/30 transition-colors"
+              className="bg-dark-800/80 backdrop-blur-lg rounded-2xl shadow-xl border border-dark-600/50 p-3 hover:bg-primary-900/30 transition-colors"
             >
               <i className="fas fa-arrow-left text-primary-400"></i>
             </button>

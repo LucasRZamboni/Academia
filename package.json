@@ -4,16 +4,21 @@
   "description": "Aplicativo para acompanhar treinos de academia",
   "type": "module",
   "scripts": {
-  "dev": "vite --force",
-  "build": "vite build",
-  "preview": "vite preview",
-  "serve": "python3 -m http.server 3000",
-  "deploy": "./deploy-updated.sh",
-  "deploy-old": "vite build && PATH=$PATH:/usr/bin gh-pages -d dist"
+    "dev": "vite --force",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "python3 -m http.server 3000",
+    "serve-win": "python -m http.server 3000",
+    "deploy": "node deploy-auto.js",
+    "deploy-cross": "node deploy.js",
+    "deploy-mac": "./deploy-updated.sh",
+    "deploy-win": "deploy.bat",
+    "deploy-simple": "vite build && npx gh-pages -d dist"
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "firebase": "^10.7.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
