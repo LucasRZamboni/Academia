@@ -13,7 +13,8 @@
     "deploy-cross": "node deploy.js",
     "deploy-mac": "./deploy-updated.sh",
     "deploy-win": "deploy.bat",
-    "deploy-simple": "vite build && npx gh-pages -d dist"
+    "deploy-simple": "vite build && npx gh-pages -d dist",
+    "deploy-auto": "./deploy-simple.sh"
   },
   "dependencies": {
     "react": "^18.2.0",
