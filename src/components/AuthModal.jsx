@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { signInAnonymously, signInWithEmail, createAccount } from '../services/authService'
 
-const AuthModal = ({ isOpen, onClose, onSuccess }) => {
+const AuthModal = ({ isOpen, onClose, onSuccess, canClose = true }) => {
   const [mode, setMode] = useState('login') // 'login', 'register', 'anonymous'
   const [formData, setFormData] = useState({
     name: '',
@@ -65,12 +65,14 @@ const AuthModal = ({ isOpen, onClose, onSuccess }) => {
           <h2 className="text-2xl font-bold text-dark-100">
             {mode === 'login' ? 'Entrar' : mode === 'register' ? 'Criar Conta' : 'Acesso Rápido'}
           </h2>
-          <button
-            onClick={onClose}
-            className="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 text-dark-300 hover:text-white transition-colors"
-          >
-            <i className="fas fa-times"></i>
-          </button>
+          {canClose && (
+            <button
+              onClick={onClose}
+              className="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 text-dark-300 hover:text-white transition-colors"
+            >
+              <i className="fas fa-times"></i>
+            </button>
+          )}
         </div>
 
         {error && (

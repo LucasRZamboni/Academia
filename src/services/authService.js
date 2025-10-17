@@ -1,32 +1,14 @@
 // Serviço de autenticação simples
 import { 
-  signInAnonymously as firebaseSignInAnonymously, 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  sendPasswordResetEmail
 } from 'firebase/auth'
 import { auth } from '../config/firebase'
 import { createOrGetUser } from './userService'
 
-// Autenticação anônima (para usuários que não querem criar conta)
-export const signInAnonymously = async () => {
-  try {
-    const userCredential = await firebaseSignInAnonymously(auth)
-    const user = userCredential.user
-    
-    // Criar ou obter dados do usuário
-    const userData = await createOrGetUser(user.uid, {
-      name: 'Usuário Anônimo',
-      email: user.email || ''
-    })
-    
-    return { user, userData }
-  } catch (error) {
-    console.error('Erro na autenticação anônima:', error)
-    throw error
-  }
-}
 
 // Login com email e senha
 export const signInWithEmail = async (email, password) => {
@@ -106,4 +88,15 @@ export const getCurrentUser = () => {
 // Verificar se usuário está logado
 export const isUserLoggedIn = () => {
   return !!auth.currentUser
+}
+
+// Recuperar senha
+export const resetPassword = async (email) => {
+  try {
+    await sendPasswordResetEmail(auth, email)
+    return true
+  } catch (error) {
+    console.error('Erro ao enviar email de recuperação:', error)
+    throw error
+  }
 }

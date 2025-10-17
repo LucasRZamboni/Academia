@@ -3,9 +3,9 @@ import Periodization from './components/Periodization'
 import ExerciseCategory from './components/ExerciseCategory'
 import RestInfo from './components/RestInfo'
 import AdvancedExerciseManagement from './components/AdvancedExerciseManagement'
-import AuthModal from './components/AuthModal'
+import LoginScreen from './components/LoginScreen'
 import { allExercises } from './data/exercisesData'
-import { onAuthStateChange } from './services/authService'
+import { onAuthStateChange, signOutUser } from './services/authService'
 import { updateUserWorkoutPlan, getUserWorkoutPlan, subscribeToUser } from './services/userService'
 
 function App() {
@@ -14,8 +14,22 @@ function App() {
   const [dayExercises, setDayExercises] = useState({})
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState(null)
-  const [showAuthModal, setShowAuthModal] = useState(false)
+  const [showLoginScreen, setShowLoginScreen] = useState(true) // Sempre mostrar primeiro
   const [loading, setLoading] = useState(true)
+  const [showUserDropdown, setShowUserDropdown] = useState(false)
+
+  // Fechar dropdown quando clicar fora
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showUserDropdown && !event.target.closest('.user-dropdown')) {
+        setShowUserDropdown(false)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
+  }, [showUserDropdown])
+
 
   // Configurar autenticação e carregar dados do usuário
   useEffect(() => {
@@ -25,6 +39,7 @@ function App() {
       if (authData) {
         setUser(authData.user)
         setUserData(authData.userData)
+        setShowLoginScreen(false) // Fechar tela de login quando logado
         
         // Carregar plano de treino do Firebase
         try {
@@ -48,6 +63,7 @@ function App() {
       } else {
         setUser(null)
         setUserData(null)
+        setShowLoginScreen(true) // Sempre mostrar tela de login quando não logado
         
         // Modo offline - carregar do localStorage
         const saved = localStorage.getItem('dayExercises')
@@ -158,7 +174,24 @@ function App() {
 
   // Função para lidar com sucesso na autenticação
   const handleAuthSuccess = () => {
-    setShowAuthModal(false)
+    setShowLoginScreen(false)
+  }
+
+  // Função para fazer logout
+  const handleLogout = async () => {
+    try {
+      await signOutUser()
+      setShowUserDropdown(false)
+      // Os dados do usuário serão limpos automaticamente pelo onAuthStateChange
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error)
+    }
+  }
+
+
+  // Se estiver mostrando a tela de login
+  if (showLoginScreen) {
+    return <LoginScreen onLoginSuccess={handleAuthSuccess} />
   }
 
   // Se estiver mostrando a tela de gestão
@@ -189,9 +222,9 @@ function App() {
     <div className="min-h-screen relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-primary-900/20 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse-slow"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-secondary-900/20 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse-slow" style={{animationDelay: '2s'}}></div>
-        <div className="absolute -bottom-8 left-20 w-96 h-96 bg-accent-900/20 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse-slow" style={{animationDelay: '4s'}}></div>
+        <div className="absolute top-0 left-0 w-96 h-96 bg-primary-500/10 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse-slow"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary-400/10 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse-slow" style={{animationDelay: '2s'}}></div>
+        <div className="absolute -bottom-8 left-20 w-96 h-96 bg-primary-600/10 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse-slow" style={{animationDelay: '4s'}}></div>
       </div>
 
       <div className="container mx-auto px-3 sm:px-4 pb-8 sm:pb-12 pt-6 sm:pt-10">
@@ -200,33 +233,60 @@ function App() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setShowManagement(true)}
-              className="bg-dark-800/80 backdrop-blur-lg rounded-2xl shadow-xl border border-dark-600/50 p-3 sm:p-4 hover:bg-primary-900/30 transition-colors inline-flex items-center gap-2 sm:gap-3"
+              className="bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl border border-gray-600/50 p-3 sm:p-4 hover:bg-primary-500/20 transition-colors inline-flex items-center gap-2 sm:gap-3"
             >
               <i className="fas fa-cog text-primary-400"></i>
-              <span className="text-dark-100 font-medium text-sm sm:text-base">Gerenciar Exercícios</span>
+              <span className="text-white font-medium text-sm sm:text-base">Gerenciar Exercícios</span>
             </button>
           </div>
           
           <div className="flex items-center gap-3">
             {user ? (
-              <div className="glass-card p-3 flex items-center gap-3">
-                <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center">
-                  <i className="fas fa-user text-white text-sm"></i>
-                </div>
-                <div className="hidden sm:block">
-                  <div className="text-dark-100 font-medium text-sm">{userData?.name || 'Usuário'}</div>
-                  <div className="text-dark-400 text-xs">
-                    {user.isAnonymous ? 'Modo Anônimo' : user.email}
+              <div className="relative user-dropdown">
+                <button
+                  onClick={() => setShowUserDropdown(!showUserDropdown)}
+                  className="glass-card p-3 flex items-center gap-3 hover:bg-dark-700/50 transition-colors cursor-pointer"
+                >
+                  <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center">
+                    <i className="fas fa-user text-white text-sm"></i>
                   </div>
-                </div>
+                  <div className="hidden sm:block">
+                    <div className="text-white font-medium text-sm">{userData?.name || 'Usuário'}</div>
+                    <div className="text-gray-400 text-xs">
+                      {user.email}
+                    </div>
+                  </div>
+                  <i className={`fas fa-chevron-down text-gray-400 text-xs transition-transform ${showUserDropdown ? 'rotate-180' : ''}`}></i>
+                </button>
+
+                {/* Dropdown Menu */}
+                {showUserDropdown && (
+                  <div className="absolute right-0 top-full mt-2 w-fit p-2 glass-card border border-gray-600/50 rounded-lg shadow-xl z-50">
+                    <div className="p-2">
+                      {/* <div className="px-3 py-2 border-b border-gray-600/50">
+                        <div className="text-white font-medium text-sm">{userData?.name || 'Usuário'}</div>
+                        <div className="text-gray-400 text-xs">
+                          {user.email}
+                        </div>
+                      </div> */}
+                      <button
+                        onClick={handleLogout}
+                        className="w-full px-3 py-2 text-left text-danger-300 hover:bg-danger-900/30 rounded-lg transition-colors flex items-center gap-2"
+                      >
+                        <i className="fas fa-sign-out-alt text-sm"></i>
+                        <span className="text-sm">Sair</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <button
-                onClick={() => setShowAuthModal(true)}
-                className="bg-dark-800/80 backdrop-blur-lg rounded-2xl shadow-xl border border-dark-600/50 p-3 hover:bg-primary-900/30 transition-colors inline-flex items-center gap-2"
+                onClick={() => setShowLoginScreen(true)}
+                className="bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl border border-gray-600/50 p-3 hover:bg-primary-500/20 transition-colors inline-flex items-center gap-2"
               >
                 <i className="fas fa-sign-in-alt text-primary-400"></i>
-                <span className="text-dark-100 font-medium text-sm">Entrar</span>
+                <span className="text-white font-medium text-sm">Entrar</span>
               </button>
             )}
           </div>
@@ -241,12 +301,6 @@ function App() {
         )}
       </div>
 
-      {/* Modal de autenticação */}
-      <AuthModal 
-        isOpen={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
-        onSuccess={handleAuthSuccess}
-      />
     </div>
   )
 }
