@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Periodization from './components/Periodization'
 import ExerciseCategory from './components/ExerciseCategory'
 import RestInfo from './components/RestInfo'
 import AdvancedExerciseManagement from './components/AdvancedExerciseManagement'
@@ -168,6 +167,7 @@ function App() {
       } catch (error) {
         console.error('Erro ao salvar no Firebase:', error)
         // Dados já foram salvos no localStorage como fallback
+        alert('Erro ao salvar no Firebase. Os dados foram salvos localmente. Verifique sua conexão e tente novamente.')
       }
     }
   }
@@ -206,6 +206,7 @@ function App() {
     )
   }
 
+
   // Mostrar loading enquanto carrega dados
   if (loading) {
     return (
@@ -238,6 +239,7 @@ function App() {
               <i className="fas fa-cog text-primary-400"></i>
               <span className="text-white font-medium text-sm sm:text-base">Gerenciar Exercícios</span>
             </button>
+            
           </div>
           
           <div className="flex items-center gap-3">
@@ -292,7 +294,45 @@ function App() {
           </div>
         </div>
 
-        <Periodization selectedDay={selectedDay} onDaySelect={setSelectedDay} />
+        {/* Logo */}
+        <div className="flex justify-center mb-8">
+          <img 
+            src="/images/exercises/Logo1.png" 
+            alt="TRAINEE WORKOUT" 
+            className="max-w-md sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-auto"
+          />
+        </div>
+
+        {/* Seletor de Dias da Semana */}
+        <div className="mb-8">
+          <h2 className="text-center text-2xl font-bold text-white mb-6">Selecione o Dia do Treino</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
+            {[
+              { day: 'Segunda-feira', icon: 'fas fa-dumbbell', color: 'bg-primary-500' },
+              { day: 'Terça-feira', icon: 'fas fa-cogs', color: 'bg-warning-500' },
+              { day: 'Quarta-feira', icon: 'fas fa-running', color: 'bg-success-500' },
+              { day: 'Quinta-feira', icon: 'fas fa-dumbbell', color: 'bg-primary-500' },
+              { day: 'Sexta-feira', icon: 'fas fa-cogs', color: 'bg-warning-500' },
+              { day: 'Sábado', icon: 'fas fa-running', color: 'bg-success-500' },
+              { day: 'Domingo', icon: 'fas fa-bed', color: 'bg-gray-500' }
+            ].map((day, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedDay(day.day)}
+                className={`p-4 rounded-xl text-center transition-all duration-300 ${
+                  selectedDay === day.day 
+                    ? 'bg-primary-500 text-white shadow-lg scale-105' 
+                    : 'bg-dark-800/80 text-gray-300 hover:bg-dark-700/90 hover:text-white'
+                }`}
+              >
+                <div className={`w-8 h-8 mx-auto mb-2 rounded-full ${day.color} flex items-center justify-center text-white`}>
+                  <i className={`${day.icon} text-sm`}></i>
+                </div>
+                <div className="text-xs font-medium">{day.day.split('-')[0]}</div>
+              </button>
+            ))}
+          </div>
+        </div>
         
         {selectedDay && (
           <div className="mt-8 sm:mt-12 animate-fade-in">
